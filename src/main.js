@@ -16,5 +16,8 @@ new Vue({
   template: '<App/>',
   components: {
     App
+  },
+  data: {
+    eventHub: new Vue()
   }
 })

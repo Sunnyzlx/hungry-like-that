@@ -226,14 +226,9 @@ export default {
       backdrop-filter: blur(10px)
       &.fade-enter-active,&.fade-leave-active
         transition: all 0.5s
-        opacity: 1
-        background: rgba(7, 17, 27, 0.8)
       &.fade-enter,&.fade-leave-to
         opacity: 0
         background: rgba(7, 17, 27, 0)
-      &.fade-enter-to,&.fade-leave
-        opacity: 1
-        background: rgba(7, 17, 27, 0.8)
       .detail-wrapper
         width: 100%
         min-height: 100%
@@ -243,7 +238,7 @@ export default {
           .name
             font-size: 16px
             font-weight: 700
-            text-align: center
+            text-align: center 
           .star-wrapper
             margin-top: 16px
             text-align: center
