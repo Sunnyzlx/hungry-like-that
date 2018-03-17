@@ -69,12 +69,14 @@ export default {
         return
       }
       this.selectedType = type
+      this.$emit('selected', type)
     },
     toggleContent(event) {
       if (!event._constructed) {
         return
       }
       this.onlyCon = !this.onlyCon
+      this.$emit('toggle', this.onlyCon)
     }
   }
 }

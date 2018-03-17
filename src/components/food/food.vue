@@ -25,18 +25,18 @@
         split
         div.rating
           h1.title 商品评价
-          ratingselect(:rating="food.ratings", :select-type="selectType", :only-content="onlyContent", :desc="desc")
+          ratingselect(@selected="selectedType", @toggle="toggleCon", :rating="food.ratings", :select-type="selectType", :only-content="onlyContent", :desc="desc")
           div.rating-wrapper
             ul(v-show="food.ratings && food.ratings.length")
               li.rating-item.border-1px-bottom(v-show="needShow(rating.rateType, rating.text)",v-for="rating in food.ratings")
                 div.user
                   span.name {{rating.username}}
                   img.avatar(width="12", height="12", :src="rating.avatar")
-                div.time {{rating.rateTime}}
+                div.time {{rating.rateTime | formateDate}}
                 p.text
                   span(:class="{'icon-thumb_up':rating.rateType===0, 'icon-thumb_down':rating.rateType===1}")
                   span {{rating.text}}
-            div.no-rating(v-show="!food.ratings || !food.ratings")
+            div.no-rating(v-show="!food.ratings || !food.ratings.length") 暂无评价
 </template>
 
 <script>
@@ -44,6 +44,7 @@ import BScroll from 'better-scroll'
 import cartcontrol from '@/components/cartcontrol/cartcontrol'
 import split from '@/components/split/split'
 import ratingselect from '@/components/ratingselect/ratingselect'
+import { formateDate } from '@/common/js/date'
 // const POSITIVE = 0
 // const NEGATIVE = 1
 const ALL = 2
@@ -100,6 +101,24 @@ export default {
       } else {
         return type === this.selectType
       }
+    },
+    selectedType(type) {
+      this.selectType = type
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    },
+    toggleCon(type) {
+      this.onlyContent = type
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    }
+  },
+  filters: {
+    formateDate: function(time) {
+      let date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
   components: {
@@ -256,4 +275,8 @@ export default {
               color rgb(0, 160, 220)  
             .icon-thumb_down
               color rgb(147, 153, 159)
+        .no-rating
+          padding 16px 0
+          font-size 12px
+          color rgb(147, 153, 159)
 </style>
