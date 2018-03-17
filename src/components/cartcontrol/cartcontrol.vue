@@ -1,10 +1,10 @@
 <template lang="pug">
   div.cartcontrol
     transition(name="move")
-      div.cart-decrease(v-show="food.count",@click="decreaseCart()")
+      div.cart-decrease(v-show="food.count",@click.stop.prevent="decreaseCart()")
         span.inner.icon-remove_circle_outline
     div.cart-count(v-show="food.count") {{food.count}}
-    div.cart-add.icon-add_circle(@click="addCart($event)")
+    div.cart-add.icon-add_circle(@click.stop.prevent="addCart($event)")
 </template>
 
 <script>
